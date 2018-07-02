@@ -1,0 +1,101 @@
+{
+    "name": "MAIN_TEST",
+    "team": "VSI",
+    "timestamp": "2017-11-29T20:20:54+00:00",
+    "producer_id": "vsi-scott",
+    "scenes": [
+        {
+            "id": "SCENE_1",
+            "coordinate_system": {
+                "type": "LVCS",
+                "parameters": [
+                    "wgs84",
+                    "meters degrees",
+                    39.7774702551,-84.1123669324, 198.096252441,
+                    0.0, 0.0,
+                    0, 0, 0]},
+            "bounds":
+                {
+                    "type":"Polygon",
+                    "coordinates":[
+                        [-20,-20],
+                        [20,-20],
+                        [20,20],
+                        [-20,20]]
+                },                    
+            "objects": [
+                {
+                    "type":"sphere_cap",
+                    "id":"spherecap_0",
+                    "transform":{
+                        "affine_matrix":[
+                            [1,0,0,-10],
+                            [0,1,0,0],
+                            [0,0,1,0],
+                            [0,0,0,1]
+                        ]
+                    },
+                    "radius":5,
+                    "min_elevation":0.5235987755982988
+                },
+                {
+                    "type":"rect_prism",
+                    "id":"box_0",
+                    "transform":{
+                        "translation":[3,2,8]   
+                    },
+                    "length":5,
+                    "width":2,
+                    "height":0.5
+                }
+            ]
+        },
+        {
+            "id": "SCENE_2",
+            "coordinate_system": {
+                "type": "LVCS",
+                "parameters": [
+                    "wgs84",
+                    "meters degrees",
+                    39.777,-84.112, 198.096,
+                    0.0, 0.0,
+                    0, 0, 0]},
+            "bounds":
+                {
+                    "type":"Polygon",
+                    "coordinates":[
+                        [-20,-20],
+                        [20,-20],
+                        [20,20],
+                        [-20,20]]
+                },    
+            "objects": [
+                {
+                    "type":"mesh",
+                    "id": "mesh_0",
+                    "transform": null,
+                    "vertices_3d":
+                    [
+                        [0,0,0],
+                        [0,0,1],
+                        [0,1,0],
+                        [0,1,1],
+                        [1,0,0],
+                        [1,0,1],
+                        [1,1,0],
+                        [1,1,1]
+                    ],
+                    "faces":
+                    [
+                        [0,2,6,4],
+                        [4,6,7,5],
+                        [2,3,7,6],
+                        [0,1,3,2],
+                        [0,4,5,1],
+                        [1,5,7,3]
+                    ]
+                }
+            ]
+        }
+    ]
+}

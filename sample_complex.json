@@ -1,0 +1,134 @@
+{
+    "name": "COMPLEX_TEST",
+    "team" :"VSI",
+    "timestamp":"2017-11-29T20:20:54+00:00",
+    "producer_id":"vsi-scott",
+    "scenes": [
+        {
+            "id": "SCENE_1",
+            "coordinate_system": {
+                "type": "LVCS",
+                "parameters": [
+                    "wgs84",
+                    "meters degrees",
+                    39.7774702551,-84.1123669324, 198.096252441,
+                    0.0, 0.0,
+                    0, 0, 0]},
+            "bounds":
+                    {
+                        "type":"Polygon",
+                        "coordinates":[
+                            [-25,-25],
+                            [25,-25],
+                            [25,25],
+                            [-25,25]]
+                    },    
+            "objects": [
+                {
+                    "type":"sphere",
+                    "id":"sphere_0",
+                    "transform":{
+                        "affine_matrix":[
+                            [1,0,0,-10],
+                            [0,1,0,0],
+                            [0,0,1,0],
+                            [0,0,0,1]
+                        ]
+                    },
+                    "radius":5
+                },
+                {
+                    "type":"cylinder",
+                    "id":"cylinder_0",
+                    "transform":{
+                        "translation":[0,10,0]   
+                    },
+                    "radius":3.5,
+                    "length": 8
+                },
+                {
+                    "type":"sliced_cyl",
+                    "id":"sliced_cyl_0",
+                    "transform":{
+                        "affine_matrix":[
+                            [-0.707,-0.707,0,0],
+                            [0.707,-0.707,0,-1],
+                            [0,0,1,-10],
+                            [0,0,0,1]
+                        ]
+                    },
+                    "radius":1.5,
+                    "length": 4,
+                    "theta":2.7
+                },
+                {
+                    "type":"cone",
+                    "id":"cone_0",
+                    "transform":{
+                        "translation":[-5,-20,-4]   
+                    },
+                    "base_rad":2,
+                    "height":10
+                },
+                {
+                    "type":"torus",
+                    "id":"torus_0",
+                    "transform":{
+                        "translation":[0,0,25]   
+                    },
+                    "rad1":2,
+                    "rad2":20
+                },
+                {
+                    "type":"sphere_cap",
+                    "id":"spherecap_0",
+                    "transform":{
+                        "affine_matrix":[
+                            [1,0,0,-5],
+                            [0,1,0,5],
+                            [0,0,1,0],
+                            [0,0,0,1]
+                        ]
+                    },
+                    "radius":5,
+                    "min_elevation":0.5235987755982988
+                },
+                {
+                    "type":"rect_prism",
+                    "id":"box_0",
+                    "transform":{
+                        "translation":[3,2,8]   
+                    },
+                    "length":5,
+                    "width":2,
+                    "height":0.5
+                },
+                {
+                    "type":"mesh",
+                    "id": "mesh_0",
+                    "transform": null,
+                    "vertices_3d":
+                    [
+                        [0,0,0],
+                        [0,0,1],
+                        [0,1,0],
+                        [0,1,1],
+                        [1,0,0],
+                        [1,0,1],
+                        [1,1,0],
+                        [1,1,1]
+                    ],
+                    "faces":
+                    [
+                        [0,2,6,4],
+                        [4,6,7,5],
+                        [2,3,7,6],
+                        [0,1,3,2],
+                        [0,4,5,1],
+                        [1,5,7,3]
+                    ]
+                }
+            ]
+        }
+    ]
+}

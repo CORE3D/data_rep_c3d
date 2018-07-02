@@ -1,0 +1,5 @@
+*.pyclocal.env
+local_post.env
+*.pyc
+__pycache__
+.vscode
