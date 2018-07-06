@@ -4,7 +4,6 @@ import argparse
 
 #this script is used to sum up the parameters of a CORE3D json data_rep file
 # it is used to compute complexity metrics.
-
 def parseFile(json_file):
   with open(json_file,'r') as fid:
     data = json.load(fid)
@@ -16,7 +15,7 @@ def parseString(json_string,**kwargs):
   return parseDict(data)
 
 
-# parse dictionary into face/vertex struct
+# parse dictionary and count parameters on individual objects
 def parseDict(data):
 
   # check for required top-level metadata
@@ -26,24 +25,23 @@ def parseDict(data):
   if fields_missing:
     raise AttributeError('Missing required fields: <{}>',format(
       ','.join(fields_missing)))
-
   totalParams = 0
-  # add face/vertex to objects
+  # count parameters in each object
   for scene in data['scenes']:
+    sceneParams = 0
     coordinate_system = scene['coordinate_system']
     objects = scene['objects']
     for obj in objects:
       paramCount = parseObject(obj)
-      totalParams = totalParams + paramCount
-
-  # return updated data
+      sceneParams = sceneParams + paramCount
+    totalParams = totalParams + sceneParams
+    sceneID = scene['id']
+    print("scene " + sceneID + " has " + str(sceneParams) + " parameters ")
   return totalParams
 
 def parseObject(obj):
-  # object type
   objtype = obj['type']
-
-  # parse object
+  # parse object by type
   if objtype == 'sphere':
     count = 1
   elif objtype == 'sphere_cap':
@@ -63,9 +61,9 @@ def parseObject(obj):
   elif objtype == 'ortho_extruded_polygon':
     count = parseOrthoExtrudedPolygon(obj)
   elif objtype == 'csg':
-    count = parseCSG(obj,temppath=temppath)
+    count = parseCSG(obj)
 
-  # apply transform (if exists)
+  # parse transform (if it exists)
   trans = obj.get('transform')
   if trans:
     count = count + parseTransform(trans)
@@ -89,7 +87,7 @@ def parseTransform(trans):
     raise ValueError(transtype + ' is not a valid transformation')
   return count
 
-#count the mesh 
+#count the mesh parameters
 def parseMesh(mesh):
   v = mesh['vertices_3d']
   f = mesh['faces']
@@ -98,12 +96,14 @@ def parseMesh(mesh):
       count = count + len(face)
   return count
 
+#count the ortho extruded polygon parameters
 def parseOrthoExtrudedPolygon(oep):
-  v2d = data['vertices_2d']
+  v2d = oep['vertices_2d']
   count = len(v2d)+1
   return count
 
-def parseCSG(csgobj):
+#count CSG parameters
+def parseCSG(csgObject):
   if 'csg_union' in csgObject:
     partList = csgObject['csg_union']
     opstr = 'union'
@@ -115,6 +115,11 @@ def parseCSG(csgobj):
     opstr = 'difference'
   else:
     raise ValueError('not a valid csg operation')
+  pcount1 = parseObject(partList[0])
+  pcount2 = parseObject(partList[1])
+  count = pcount1 + pcount2 + 1
+  return count
+
 def main():
 
   # parse inputs
