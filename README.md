@@ -55,10 +55,22 @@ We have implemented a few objects as a basis and will expand this to include oth
 **CSG:** 3D solids made using boolean operations of other solids. For example the union of two spheres. Each CSG has an operand and two children, these children are themselves 3D objects which can be primitives or other CSG's (1 parameter + childrens' parameter count) _note:_ CSG will turn all faces into triangular meshes, and requires pymesh and boolean engines to be installed.
 
 ## Scene meshing ##
-We have provided a sample program and sample data to reconstruct the geometry encoded in this format. This program reads in the sample JSON file and creates a directory with series of .obj files for loading into a variety of 3D viewers/rendering programs. To execute the sample program python 3 along with numpy and pymesh are needed. Once all the dependencies are installed simply execute (from the "scripts" directory)
+We have provided a sample program and sample data to reconstruct the geometry encoded in this format. This program reads in the sample JSON file and creates a directory with series of .obj files for loading into a variety of 3D viewers/rendering programs. To execute the sample program python 3 along with numpy and pymesh are needed. Once all the dependencies are installed simply execute
 
 ```
 python json2obj.py -i sample.json -o ./output
 ```
 
-and the program will run on the included sample file. Note: the target for this repo is python 3, but it should also support python 2.7.
+and the program will run on the included sample file.
+
+
+## Parameter counting ##
+To measure the model complexity we have provided a script for counting the total number of parameters at a scene and file level. To execute the scripts run
+
+```
+python paramCounter.py -i sample.json
+```
+and the program will run on the included sample file
+
+
+Note: the target for this repo is python 3, but it should also support python 2.7.
