@@ -48,7 +48,7 @@ We have implemented a few objects as a basis and will expand this to include oth
 
 **Rectangular prism:** axis aligned with one vertex at the origin (3 parameters)
 
-**Ortho-extruded polygon:** axis aligned 2D polygon of n vertices extruded along the z axis ((2*n)+1 parameters)
+**Ortho-extruded polygon:** axis aligned 2D polygon of n vertices extruded along the z axis (n+1 parameters)
 
 **Mesh:** 3D mesh consisting of 3D vertices and polygonal faces. Faces are described by counterclockwise lists of vertex indices (variable parameters)
 
