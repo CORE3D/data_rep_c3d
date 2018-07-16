@@ -216,13 +216,13 @@ def orthoExPolyGen(verts2D,height):
   if counterClockwiseCheck(verts2D):
     verts2D.reverse()
   face =[]
-  #top face
+  #bottom face
   for i in range(numV):
     v = verts2D[i]
     verts.append([v[0],v[1],0])
     face.append(i)
   faces.append(face)
-  #bottom face
+  #top face
   face = []
   for i in range(numV):
     v = verts2D[i]
@@ -254,7 +254,7 @@ def cylinderGen(rad,length):
 # aligned cylinder of a specified radius and axis length defined by an angle
 # theta defining the slice
 def slicedCylGen(rad,length,theta):
-  angleStep = (10)*math.pi/180
+  angleStep = (1)*math.pi/180
   verts =[]
   faces =[]
   angles = np.arange(0,theta,angleStep)
