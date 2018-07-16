@@ -428,6 +428,6 @@ def writeFV(file,fv):
 
 #Scott uses this for debugging mesh generation
 #nothing to see here
-# if __name__ == "__main__":
-#   [v,f] = torusGen(5,0)
-#   meshIO.writeObj(v,f,'/home/sorensen/Desktop/torus.obj')
+if __name__ == "__main__":
+   [v,f] = torusGen(5,10)
+   meshIO.writeObj(v,f,'temp.obj')
