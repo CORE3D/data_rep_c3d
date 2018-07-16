@@ -3,3 +3,4 @@ local_post.env
 *.pyc
 __pycache__
 .vscode
+temp.obj
