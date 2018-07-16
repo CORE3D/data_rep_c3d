@@ -327,6 +327,9 @@ def torusGen(rad1,rad2):
     offset = offset + n
   return verts,faces
 
+#this function will make extrusions of polygons that may not be aligned to the xy plane
+def fixedZOrthoExPoly(verts3D,zval):
+  pass
 
 #this function is used to check to see if a list of 2D vertices are clockwise
 def counterClockwiseCheck(vertList):
@@ -429,5 +432,6 @@ def writeFV(file,fv):
 #Scott uses this for debugging mesh generation
 #nothing to see here
 if __name__ == "__main__":
-   [v,f] = torusGen(5,10)
+   #[v,f] = torusGen(5,10)
+   [v,f] = orthoExPolyGen([[0,-.3],[1.1,0],[1,1],[2,1],[2,2],[0,0],[3,3],[1,3],[1,2],[0,2]],1.5)
    meshIO.writeObj(v,f,'temp.obj')
