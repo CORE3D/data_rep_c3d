@@ -461,9 +461,7 @@ def writeFV(file,fv):
 
 #Scott uses this for debugging mesh generation
 #nothing to see here
-if __name__ == "__main__":
-   #[v,f] = torusGen(5,10)
-   #[v,f] = orthoExPolyGen([[0,-.3],[1.1,0],[1,1],[2,1],[2,2],[0,0],[3,3],[1,3],[1,2],[0,2]],1.5)
-   inverts = [[0,0,1],[2,0,1],[3,1,2],[2,2,2],[0,2,2]]
-   [v,f] = fixedZOrthoExPoly(inverts,-10)
-   meshIO.writeObj(v,f,'temp.obj')
+#if __name__ == "__main__":
+#   inverts = [[0,0,1],[2,0,1],[3,1,2],[2,2,2],[0,2,2]]
+#   [v,f] = fixedZOrthoExPoly(inverts,-10)
+#   meshIO.writeObj(v,f,'temp.obj')
