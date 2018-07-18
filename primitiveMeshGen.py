@@ -361,6 +361,24 @@ def fixedZOrthoExPoly(verts3D,zval):
   faces.append([v0,v1,v2,v3])
   return verts,faces
 
+#this function will make an extruded 'planar region' as defined by a plane
+# a basis vector and a polygon in that plane
+def planarRegionExt(planeNorm,planeOrigin,xbasis,poly2d,zlevel):
+  ybasis = np.cross(planeNorm,xbasis)
+  verts3d = []
+  for vert in poly2d:
+    uMult = vert[0]
+    vMult = vert[1]
+    x = planeOrigin[0] + uMult*xbasis[0] + vMult*ybasis[0]
+    y = planeOrigin[1] + uMult*xbasis[1] + vMult*ybasis[1]
+    z = planeOrigin[2] + uMult*xbasis[2] + vMult*ybasis[2]
+    verts3d.append([x,y,z])
+  if not counterClockwiseCheck(verts3d):
+    verts3d.reverse()
+  [v,f] = fixedZOrthoExPoly(verts3d,zlevel)
+  return [v,f]
+
+
 #this function is used to check to see if a list of 2D vertices are clockwise
 def counterClockwiseCheck(vertList):
   sum = 0
@@ -461,7 +479,32 @@ def writeFV(file,fv):
 
 #Scott uses this for debugging mesh generation
 #nothing to see here
-#if __name__ == "__main__":
-#   inverts = [[0,0,1],[2,0,1],[3,1,2],[2,2,2],[0,2,2]]
-#   [v,f] = fixedZOrthoExPoly(inverts,-10)
-#   meshIO.writeObj(v,f,'temp.obj')
+if __name__ == "__main__":
+  pnorm = [-0.0642342,-0.0159718,0.997807]
+  xbase = [0.241302,-0.97045,0]
+  planeOrigin = [421.713,720.507,25.2549]
+  pol2d = [[-49.4549 , -33.878 ], [-40.8828 , -13.1831 ], [-15.8456 , -23.5538 ],
+           [-16.9554 , -26.2331 ],[-13.8142 , -27.5342 ], [-18.9422 , -39.9142 ],
+           [-6.74699 , -44.9656 ], [-1.61903 , -32.5856 ], [7.71216 , -36.4507 ],
+           [10.9267 , -28.6901 ], [20.8122 , -32.7849 ], [25.634 , -21.144 ],
+           [24.433 , -20.6465 ], [25.2366 , -18.7063 ], [18.3075 , -15.8362 ],
+           [17.5039 , -17.7764 ], [10.8519 , -15.021 ], [14.4874 , -6.24419 ],
+           [22.6176 , -9.6118 ], [22.8855 , -8.96509 ], [28.3363 , -11.2229 ],
+           [28.6808 , -10.3914 ], [10.6651 , -2.9291 ], [13.7648 , 4.55432 ],
+           [10.5313 , 5.89371 ], [16.3863 , 20.0291 ], [24.0545 , 16.8528 ],
+           [24.6285 , 18.2386 ], [32.7587 , 14.871 ], [35.7054 , 21.9849 ],
+           [32.4718 , 23.3243 ], [32.2039 , 22.6776 ], [27.3073 , 24.7058 ],
+           [27.5752 , 25.3525 ], [23.1406 , 27.1894 ], [25.7428 , 33.4718 ],
+           [35.074 , 29.6066 ], [42.345 , 47.1604 ], [23.775 , 54.8523 ],
+           [16.504 , 37.2986 ], [13.5476 , 38.5232 ], [8.34313 , 25.9584 ],
+           [3.81612 , 27.8336 ], [-2.95737 , 11.4809 ], [-1.57155 , 10.9069 ],
+           [-4.67129 , 3.42344 ], [-6.05711 , 3.99747 ], [-6.6694 , 2.51926 ],
+           [-30.3207 , 12.316 ], [-29.7084 , 13.7942 ], [-34.6974 , 15.8607 ],
+           [-35.0418 , 15.0292 ], [-33.4712 , 14.3786 ], [-36.5709 , 6.89518 ],
+           [-38.1415 , 7.54574 ], [-38.9452 , 5.60559 ], [-40.9777 , 6.44749 ],
+           [-49.014 , -12.954 ], [-45.4109 , -14.4464 ], [-50.5389 , -26.8264 ],
+           [-71.6033 , -18.1012 ], [-73.9377 , -23.7369 ]]
+  #[v,f] = fixedZOrthoExPoly(inverts,-10)
+  print (len(pol2d))
+  [v,f]=planarRegionExt(pnorm,planeOrigin,xbase,pol2d,18)
+  meshIO.writeObj(v,f,'temp.obj')

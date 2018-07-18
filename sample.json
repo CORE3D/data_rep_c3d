@@ -22,7 +22,7 @@
                         [20,-20],
                         [20,20],
                         [-20,20]]
-                },                    
+                },
             "objects": [
                 {
                     "type":"sphere_cap",
@@ -39,10 +39,20 @@
                     "min_elevation":0.5235987755982988
                 },
                 {
+                    "type":"extruded_planar_region",
+                    "id":"plr0",
+                    "transform":null,
+                    "normal":[0,0,1],
+                    "x_basis":[1,0,0],
+                    "origin":[0,4,-2],
+                    "polygon_points":[[0,0],[1,1],[0,1]],
+                    "ground_level":-3
+                },
+                {
                     "type":"rect_prism",
                     "id":"box_0",
                     "transform":{
-                        "translation":[3,2,8]   
+                        "translation":[3,2,8]
                     },
                     "length":5,
                     "width":2,
@@ -68,7 +78,7 @@
                         [20,-20],
                         [20,20],
                         [-20,20]]
-                },    
+                },
             "objects": [
                 {
                     "type":"mesh",

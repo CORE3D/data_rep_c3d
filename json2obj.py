@@ -70,9 +70,10 @@ def parseObject(obj,temppath=None):
     fv = parseMesh(obj)
   elif objtype == 'ortho_extruded_polygon':
     fv = parseOrthoExtrudedPolygon(obj)
+  elif objtype == 'extruded_planar_region':
+    fv = parsePlanarRegion(obj)
   elif objtype == 'csg':
     fv = parseCSG(obj,temppath=temppath)
-
   # ensure numpy array
   fv['vertices'] = np.array(fv['vertices'])
 
@@ -138,6 +139,16 @@ def parseRectPrism(data):
   w = data['width']
   h = data['height']
   [v,f] = primitiveMeshGen.rectPrismGen(l,w,h)
+  return {'vertices':v,'faces':f}
+
+#parse extruded planar region
+def parsePlanarRegion(data):
+  norm = data['normal']
+  xbasis = data['x_basis']
+  origin = data['origin']
+  polyPts = data['polygon_points']
+  gndZ = data['ground_level']
+  [v,f] = primitiveMeshGen.planarRegionExt(norm,origin,xbasis,polyPts,gndZ)
   return {'vertices':v,'faces':f}
 
 #parse cylinder
