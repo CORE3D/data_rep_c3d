@@ -58,11 +58,15 @@ def parseObject(obj):
     count = 2
   elif objtype == 'mesh':
     count = parseMesh(obj)
+  elif objtype == 'extruded_planar_region':
+    count = parsePlanarRegionExt(obj)
   elif objtype == 'ortho_extruded_polygon':
     count = parseOrthoExtrudedPolygon(obj)
   elif objtype == 'csg':
     count = parseCSG(obj)
-
+  else:
+    print("Error: unknown object type: " + objtype)
+    exit()
   # parse transform (if it exists)
   trans = obj.get('transform')
   if trans:
@@ -76,7 +80,8 @@ def parseTransform(trans):
   else:
     transtype = list(trans.keys())[0]
   if transtype == 'affine_matrix':
-    count = 16
+    count = parseAffineMatrix(trans['affine_matrix'])
+    #count = 16
   elif transtype =='translation':
     count = 3
   elif transtype == 'euler_angles':
@@ -87,19 +92,38 @@ def parseTransform(trans):
     raise ValueError(transtype + ' is not a valid transformation')
   return count
 
+
+#parse the affine matrix to see where it differs from the identity
+def parseAffineMatrix(affmat):
+    ident = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]
+    eps = .00000001
+    count = 0
+    for i in range(4):
+        for j in range(4):
+            if abs(affmat[i][j]-ident[i][j])>eps:
+                count = count + 1
+    return count
+
 #count the mesh parameters
 def parseMesh(mesh):
   v = mesh['vertices_3d']
   f = mesh['faces']
-  count = 3*len(v) 
+  count = 3*len(v)
   for face in f:
       count = count + len(face)
   return count
 
+#count the parameters for the extruded planar region
+#2x npts + normal (3) + origin (3) + x_basis (3) + 1 = 2x+10
+def parsePlanarRegionExt(region):
+    polyPts = region['polygon_points']
+    count = 2*len(polyPts) + 10
+    return count
+
 #count the ortho extruded polygon parameters
 def parseOrthoExtrudedPolygon(oep):
   v2d = oep['vertices_2d']
-  count = len(v2d)+1
+  count = (2*len(v2d))+1
   return count
 
 #count CSG parameters
